@@ -114,15 +114,11 @@ function momsSpagetti(lyrics) {
 }
 
 // REFACTORED VERSION HERE //
-//Task:
-// Create a refactored version of the following code at the bottom of this file using ES6 conventions
-// Also leave a commented section breifly outlining some of the techniques, style choice, and reasons for your refactoring choices
-// The refactored version of this code should be promise based and consider standard linting practices
 
 const momsSpagettiNew =(lyrics) =>{ 
 // conversion to arrow functions
 // converted "var" to "let". let is the new standard for variables that will be changed. let is for the block it is in only. "let" will give us the ability to use the varibale name again outside of the block it is in, should we need too. added let in front of first for-loop "i", same reasoning. 
-// saw repeated code "loseYourself = loseYourself +" and turned in to "addLyrics function" and the input is part of the object path for the required lyrics
+// saw repeated code "loseYourself = loseYourself +" and turned in to "addLyrics function" and the input parameeter is a strong of the object path for the required lyrics
 
     let loseYourself=""; 
     let internalCounter = 0;
@@ -134,7 +130,6 @@ const momsSpagettiNew =(lyrics) =>{
     const addChorusLyrics =()=>{
         for(let i = 0; i < lyrics.choruses.length; i++) {
             loseYourself = loseYourself + lyrics.choruses[i].chorus;
-            addLyrics("choruses[i].chorus")
             if(internalCounter === 0) {
                 internalCounter++;
                 addLyrics("refrain");
