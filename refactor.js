@@ -87,31 +87,31 @@ const lyrics = {
 // The result should look like https://www.google.ca/search?rlz=1C5CHFA_enCA764CA764&ei=4iFbWs_VG43CjwOJ465Q&q=lose+yourself+lyrics&oq=lose+yoursle&gs_l=psy-ab.3.0.0i10k1l10.6780.11717.0.12640.28.24.0.2.2.0.275.2686.4j13j2.20.0....0...1c.1.64.psy-ab..15.12.1403.0..0j0i67k1j0i131k1j0i131i67k1.234.XSGvMUvV4XY
 
 
-// function momsSpagetti(lyrics) {
+function momsSpagetti(lyrics) {
 
-//     var loseYourself;
-//     var internalCounter = 0
-//     loseYourself = lyrics.intro;
+    var loseYourself;
+    var internalCounter = 0
+    loseYourself = lyrics.intro;
 
-//     for(i = 0; i < lyrics.choruses.length; i++) {
-//         loseYourself = loseYourself + lyrics.choruses[i].chorus;
-//         if(internalCounter == 0) {
-//             internalCounter++
-//             loseYourself = loseYourself + lyrics.refrain
-//         }
-//         if(internalCounter == 1) {
-//             internalCounter++
-//             loseYourself = loseYourself + lyrics.refrain
-//         }
-//         if(internalCounter == 2) {
-//             internalCounter = 0
-//         }
-//     }
+    for(i = 0; i < lyrics.choruses.length; i++) {
+        loseYourself = loseYourself + lyrics.choruses[i].chorus;
+        if(internalCounter == 0) {
+            internalCounter++
+            loseYourself = loseYourself + lyrics.refrain
+        }
+        if(internalCounter == 1) {
+            internalCounter++
+            loseYourself = loseYourself + lyrics.refrain
+        }
+        if(internalCounter == 2) {
+            internalCounter = 0
+        }
+    }
 
-//     loseYourself = loseYourself + lyrics.ending;
+    loseYourself = loseYourself + lyrics.ending;
 
-//     return loseYourself;
-// }
+    return loseYourself;
+}
 
 // REFACTORED VERSION HERE //
 //Task:
@@ -119,12 +119,10 @@ const lyrics = {
 // Also leave a commented section breifly outlining some of the techniques, style choice, and reasons for your refactoring choices
 // The refactored version of this code should be promise based and consider standard linting practices
 
-const momsSpagetti =(lyrics) =>{ 
-// conversion to arrow function, so sleek, very ES6, wow.
+const momsSpagettiNew =(lyrics) =>{ 
+// conversion to arrow functions
 // converted "var" to "let". let is the new standard for variables that will be changed. let is for the block it is in only. "let" will give us the ability to use the varibale name again outside of the block it is in, should we need too. added let in front of first for-loop "i", same reasoning. 
-// added various semi-colons
-// saw repeated code "loseYourself = loseYourself +" and turned in to "addLyrics function"
-// changed 2 in the for loop to "lyrics.reafrainRepeat" incase you wanted to sing more
+// saw repeated code "loseYourself = loseYourself +" and turned in to "addLyrics function" and the input is part of the object path for the required lyrics
 
     let loseYourself=""; 
     let internalCounter = 0;
@@ -136,6 +134,7 @@ const momsSpagetti =(lyrics) =>{
     const addChorusLyrics =()=>{
         for(let i = 0; i < lyrics.choruses.length; i++) {
             loseYourself = loseYourself + lyrics.choruses[i].chorus;
+            addLyrics("choruses[i].chorus")
             if(internalCounter === 0) {
                 internalCounter++;
                 addLyrics("refrain");
@@ -144,21 +143,18 @@ const momsSpagetti =(lyrics) =>{
                 internalCounter++;
                 addLyrics("refrain");
             }
-            if(internalCounter === lyrics.refrainRepeat) {
+            if(internalCounter === 2) {
                 internalCounter = 0;
             }
         }
     }
 
-    const myPromise = (new Promise(() => {}))
-    .then(addLyrics("intro"))
-    .then(addChorusLyrics())
-    .then(addLyrics("ending"))
-    .catch(()=>console.log("error encountered"));
+        const myPromise = (new Promise(() => {}))
+        .then(addLyrics("intro"))
+        .then(addChorusLyrics())
+        .then(addLyrics("ending"))
+        .catch(()=>console.log("error encountered"));
 
     return loseYourself;
 } 
-
-// console.log(lyrics.intro);
-console.log(momsSpagetti(lyrics));
 
